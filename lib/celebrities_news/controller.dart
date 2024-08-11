@@ -21,11 +21,13 @@ class CelebritiesNewsController extends GetxController {
       String responseBody = await response.stream.bytesToString();
       Map<String, dynamic> jsonData = json.decode(responseBody);
       List<dynamic> newsList = jsonData['news'];
-      // Ensuring no duplicate data
-      return newsList.map((e) => Newsof.fromJson(e)).toSet().toList();
+      return newsList.map((e) => Newsof.fromJson(e)).toList();
     } else {
       print(response.reasonPhrase);
-      throw Exception('Failed to load celebrities news');
+      throw Exception('Failed to load celebrities news: ${response.reasonPhrase}');
     }
   }
 }
+
+
+
