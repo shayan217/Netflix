@@ -1,14 +1,12 @@
 import 'dart:math';
-
-import 'package:augmented_reality/movies_news/model.dart'; // Ensure this is the correct path
+import 'package:augmented_reality/top_box/top_box_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class MovieNewsCard extends StatelessWidget {
-  final News movienews;
-  const MovieNewsCard({required this.movienews});
-  
+class TopBoxCard extends StatelessWidget {
+  final TopBoxMovies topBoxMovies;
+  const TopBoxCard({required this.topBoxMovies});
   @override
   Widget build(BuildContext context) {
     List<String> defaultImages = [
@@ -16,8 +14,7 @@ class MovieNewsCard extends StatelessWidget {
       'assets/download2.jpg',
       'assets/download3.jpg',
     ];
-    bool isImageFromApiAvailable = movienews.image?.isNotEmpty == true;
-
+    bool isImageFromApiAvailable = topBoxMovies.image?.isNotEmpty == true;
     return Card(
       color: Colors.black,
       margin: EdgeInsets.all(10),
@@ -30,31 +27,14 @@ class MovieNewsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              movienews.date ?? '',
-              style: GoogleFonts.montserrat(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white70,
-              ),
-            ),
             SizedBox(height: 10),
             Stack(
               children: [
-                // ClipRRect(
-                //   borderRadius: BorderRadius.circular(12),
-                //   child: Image.network(
-                //     movienews.image ?? '',
-                //     fit: BoxFit.cover,
-                //     width: double.infinity,
-                //     height: 220,
-                //   ),
-                // ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: isImageFromApiAvailable
                       ? Image.network(
-                          movienews.image!,
+                          topBoxMovies.image!,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 220,
@@ -84,7 +64,7 @@ class MovieNewsCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(15),
                     child: Text(
-                      movienews.title ?? '',
+                      topBoxMovies.title ?? '',
                       style: GoogleFonts.montserrat(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -100,24 +80,38 @@ class MovieNewsCard extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Center(
-              child: Text(
-                'WRITER: ${movienews.writer}'.toUpperCase(),
-                style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+            SizedBox(height: 10),
+                  Text(
+                    'TOTAL GROSS: ${topBoxMovies.totalGross ?? 'TOTAL GROSS IS NOT AVAILABLE'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                  ),
+                   SizedBox(height: 5),
+                  Text(
+                    'WEEKEND GROSS: ${topBoxMovies.weekendGross ?? 'WEEKEND GROSS IS NOT AVAILABLE'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'WEEKS  RELEASED: ${topBoxMovies.weeksReleased ?? 'WEEKS RELEASED IS NOT AVAILABLE'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'IMDB RATING: ${topBoxMovies.imdbRating ?? 'IMDB RATING IS NOT AVAILABLE'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 5),
-            Center(
-              child: Text(
-                'SOURCE: ${movienews.source}'.toUpperCase(),
-                style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
-              ),
-            ),
-            SizedBox(height: 25),
-            Text(
-              'DESCRIPTION: ${movienews.description}'.toUpperCase(),
-              style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
-              textAlign: TextAlign.center,
             ),
             SizedBox(height: 15),
             Center(
@@ -130,11 +124,12 @@ class MovieNewsCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  _launchUrl(movienews.link ?? '');
+                  _launchUrl(topBoxMovies.link ?? '');
                 },
                 child: Text(
-                  'SEE NEWS',
-                  style: GoogleFonts.montserrat(fontSize: 18, color: Colors.white),
+                  'WATCH NOW',
+                  style:
+                      GoogleFonts.montserrat(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),

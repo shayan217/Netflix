@@ -22,6 +22,6 @@ class UpcomingTvShows extends GetxController {
   } else {
     print(response.reasonPhrase);
   }
-  throw {}; // or handle error appropriately
+  throw {};
 }
 }

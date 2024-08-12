@@ -1,23 +1,19 @@
 import 'dart:math';
-import 'package:augmented_reality/upcoming_tv_shows/model.dart';
+import 'package:augmented_reality/movies_news/movie_news_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class TvShowsCard extends StatelessWidget {
-  final ShowDetails showDetails;
-  final TVShowItem tvshowItem;
-
-  const TvShowsCard({required this.showDetails, required this.tvshowItem});
-
+class MovieNewsCardAdvance extends StatelessWidget {
+  final NewsMovieAdvance newsMovieAdvance;
+  const MovieNewsCardAdvance({required this.newsMovieAdvance});
   @override
   Widget build(BuildContext context) {
-  List<String> defaultImages = [
+    List<String> defaultImages = [
       'assets/download.jpg',
       'assets/download2.jpg',
       'assets/download3.jpg',
     ];
-    bool isImageFromApiAvailable = showDetails.image?.isNotEmpty == true;
+    bool isImageFromApiAvailable = newsMovieAdvance.image?.isNotEmpty == true;
     return Card(
       color: Colors.black,
       margin: EdgeInsets.all(10),
@@ -30,14 +26,13 @@ class TvShowsCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              tvshowItem.date ?? '',
-              style: GoogleFonts.montserrat(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white70,
-              ),
-            ),
+            SizedBox(height: 10),
+                  Text(
+                    '${newsMovieAdvance.date ?? ''}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                  ),
             SizedBox(height: 10),
             Stack(
               children: [
@@ -45,7 +40,7 @@ class TvShowsCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   child: isImageFromApiAvailable
                       ? Image.network(
-                          showDetails.image!,
+                          newsMovieAdvance.image!,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 220,
@@ -75,7 +70,7 @@ class TvShowsCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(15),
                     child: Text(
-                      showDetails.title ?? '',
+                      newsMovieAdvance.title ?? '',
                       style: GoogleFonts.montserrat(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -89,17 +84,36 @@ class TvShowsCard extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 10),
-            Text(
-              'CATEGORIES: ${showDetails.categories?.join(', ') ?? 'CATEGORIES IS NOT AVAILABLE'}'
-                  .toUpperCase(),
-              style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
-            ),
             SizedBox(height: 5),
-            Text(
-              'STARRING: ${showDetails.staring?.join(', ') ?? 'STARRING IS NOT AVAILABLE'}'
-                  .toUpperCase(),
-              style: GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
+            Center(
+              child: Column(
+                children: [
+                   SizedBox(height: 5),
+                  Text(
+                    'WRITER: ${newsMovieAdvance.writer ?? 'WRITER'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                        textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    'SOURCE: ${newsMovieAdvance.source ?? 'SOURCE'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                        textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'DESCRIPTION: ${newsMovieAdvance.description ?? 'DESCRIPTION'}'
+                        .toUpperCase(),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16, color: Colors.white60),
+                        textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 15),
             Center(
@@ -112,11 +126,12 @@ class TvShowsCard extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  _launchUrl(showDetails.link ?? '');
+                  _launchUrl(newsMovieAdvance.link ?? '');
                 },
                 child: Text(
                   'WATCH NOW',
-                  style: GoogleFonts.montserrat(fontSize: 18, color: Colors.white),
+                  style:
+                      GoogleFonts.montserrat(fontSize: 18, color: Colors.white),
                 ),
               ),
             ),
@@ -128,7 +143,6 @@ class TvShowsCard extends StatelessWidget {
       ),
     );
   }
-
   Future<void> _launchUrl(String link) async {
     final Uri _url = Uri.parse(link);
     if (!await launchUrl(_url)) {
