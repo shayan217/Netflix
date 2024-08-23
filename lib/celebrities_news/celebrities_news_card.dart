@@ -37,15 +37,6 @@ class CelebritiesNewsCard extends StatelessWidget {
             SizedBox(height: 10),
             Stack(
               children: [
-                // ClipRRect(
-                //   borderRadius: BorderRadius.circular(12),
-                //   child: Image.network(
-                //     news.image ?? '',
-                //     fit: BoxFit.cover,
-                //     width: double.infinity,
-                //     height: 220,
-                //   ),
-                // ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: isImageFromApiAvailable

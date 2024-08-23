@@ -1,12 +1,11 @@
 import 'dart:math';
-import 'package:augmented_reality/movies_news/movie_news_model.dart';
+import 'package:augmented_reality/trending_movies/trending_movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class MovieNewsCardAdvance extends StatelessWidget {
-  final NewsMovieAdvance newsMovieAdvance;
-  const MovieNewsCardAdvance({required this.newsMovieAdvance});
+class TrendingMovieCard extends StatelessWidget {
+  final TrendingMoviesSecond trend;
+  const TrendingMovieCard({required this.trend});
   @override
   Widget build(BuildContext context) {
     List<String> defaultImages = [
@@ -14,7 +13,7 @@ class MovieNewsCardAdvance extends StatelessWidget {
       'assets/download2.jpg',
       'assets/download3.jpg',
     ];
-    bool isImageFromApiAvailable = newsMovieAdvance.image?.isNotEmpty == true;
+    bool isImageFromApiAvailable = trend.image?.isNotEmpty == true;
     return Card(
       color: Colors.black,
       margin: EdgeInsets.all(10),
@@ -28,19 +27,13 @@ class MovieNewsCardAdvance extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 10),
-            Text(
-              '${newsMovieAdvance.date ?? ''}'.toUpperCase(),
-              style:
-                  GoogleFonts.montserrat(fontSize: 16, color: Colors.white60),
-            ),
-            SizedBox(height: 10),
             Stack(
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: isImageFromApiAvailable
                       ? Image.network(
-                          newsMovieAdvance.image!,
+                          trend.image!,
                           fit: BoxFit.cover,
                           width: double.infinity,
                           height: 220,
@@ -70,7 +63,7 @@ class MovieNewsCardAdvance extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(15),
                     child: Text(
-                      newsMovieAdvance.title ?? '',
+                      trend.title ?? '',
                       style: GoogleFonts.montserrat(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
@@ -88,29 +81,29 @@ class MovieNewsCardAdvance extends StatelessWidget {
             Center(
               child: Column(
                 children: [
-                  SizedBox(height: 5),
+                   SizedBox(height: 5),
                   Text(
-                    'WRITER: ${newsMovieAdvance.writer ?? 'WRITER'}'
+                    'YEAR: ${trend.year ?? 'YEAR'}'
                         .toUpperCase(),
                     style: GoogleFonts.montserrat(
                         fontSize: 16, color: Colors.white60),
-                    textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'SOURCE: ${newsMovieAdvance.source ?? 'SOURCE'}'
+                    'TIMELINE: ${trend.timeline ?? 'TIMELINE'}'
                         .toUpperCase(),
                     style: GoogleFonts.montserrat(
                         fontSize: 16, color: Colors.white60),
-                    textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 5),
                   Text(
-                    'DESCRIPTION: ${newsMovieAdvance.description ?? 'DESCRIPTION'}'
+                    'IMDB RATING: ${trend.imdbRating ?? 'IMDB RATING'}'
                         .toUpperCase(),
                     style: GoogleFonts.montserrat(
                         fontSize: 16, color: Colors.white60),
-                    textAlign: TextAlign.center,
+                        textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -126,7 +119,7 @@ class MovieNewsCardAdvance extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  _launchUrl(newsMovieAdvance.link ?? '');
+                  _launchUrl(trend.link ?? '');
                 },
                 child: Text(
                   'WATCH NOW',
@@ -143,7 +136,6 @@ class MovieNewsCardAdvance extends StatelessWidget {
       ),
     );
   }
-
   Future<void> _launchUrl(String link) async {
     final Uri _url = Uri.parse(link);
     if (!await launchUrl(_url)) {

@@ -48,15 +48,6 @@ class MovieCard extends StatelessWidget {
                   children: [
                     Stack(
                       children: [
-                        // ClipRRect(
-                        //   borderRadius: BorderRadius.circular(12),
-                        //   child: Image.network(
-                        //     item.image ?? '',
-                        //     fit: BoxFit.cover,
-                        //     width: double.infinity,
-                        //     height: 220,
-                        //   ),
-                        // ),
                         ClipRRect(
                   borderRadius: BorderRadius.circular(12),
                   child: isImageFromApiAvailable

@@ -4,6 +4,7 @@ import 'package:augmented_reality/main_home/second_home.dart';
 import 'package:augmented_reality/movies_news/movie_news_view.dart';
 import 'package:augmented_reality/top250movies/250view.dart';
 import 'package:augmented_reality/top_box/top_box_view.dart';
+import 'package:augmented_reality/trending_movies/trending_movie_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 void main() {
@@ -16,9 +17,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: MainHomeMovies(),
-        // home: SecondHome(),
-      // home: TopBoxView(),
-      // home: MovieNewsViewAdvance(),
     );
   }
 }

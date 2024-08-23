@@ -12,12 +12,13 @@ class TvShowsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  List<String> defaultImages = [
+    List<String> defaultImages = [
       'assets/download.jpg',
       'assets/download2.jpg',
       'assets/download3.jpg',
     ];
     bool isImageFromApiAvailable = showDetails.image?.isNotEmpty == true;
+
     return Card(
       color: Colors.black,
       margin: EdgeInsets.all(10),
@@ -136,3 +137,4 @@ class TvShowsCard extends StatelessWidget {
     }
   }
 }
+
