@@ -1,4 +1,4 @@
-# augmented_reality
+# Netflix
 
 A new Flutter project.
 
